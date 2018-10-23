@@ -16,6 +16,7 @@ class UserSerializers(serializers.ModelSerializer):
 
 class RoomSerializers(serializers.ModelSerializer):
     participated_user = UserSerializers(required=False, many=True)
+    latest_msg = serializers.CharField(read_only=True)
 
     class Meta:
         model = Room
@@ -44,13 +45,20 @@ class RoomSerializers(serializers.ModelSerializer):
         users = UserSerializers(
             get_user_model().objects.filter(
                 pk__in=Room2User.objects.filter(
-                    Q(room_id=instance.id) & Q(user_id=self.context['request'].user.id)
-                )
+                    room_id=instance.id
+                ).values_list('user_id', flat=True)
             ),
             many=True,
         )
 
         instance.participated_user = users.data
+        latest_msg = Message.objects.filter(
+            room_id=instance.id
+        ).order_by('id').last()
+
+        if latest_msg:
+            instance.latest_msg = latest_msg.msg
+
         return super().to_representation(instance)
 
 
