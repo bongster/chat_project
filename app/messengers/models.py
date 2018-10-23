@@ -11,7 +11,7 @@ class Room(models.Model):
         )
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=100)
-    owner_id = models.PositiveIntegerField(null=True)
+    owner_id = models.PositiveIntegerField(null=True, blank=True)
 
     is_active = models.BooleanField(default=True)
 
@@ -39,8 +39,8 @@ class Message(models.Model):
     class Meta:
         db_table = 'messages'
 
-    from_user = models.PositiveIntegerField(db_index=True)
-    to_user = models.PositiveIntegerField(db_index=True)
+    owner_id = models.PositiveIntegerField(db_index=True, blank=True)
+    room_id = models.PositiveIntegerField(db_index=True)
 
     msg = models.TextField()
 

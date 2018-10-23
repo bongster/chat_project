@@ -1,0 +1,46 @@
+{% extends 'rooms/layout/index.html' %}
+
+{% block content %}
+<div class="d-flex flex-column bd-highlight mb-3 h-100">
+    <div class="clearfix">
+        <div class="p-2 float-left w-80">
+            <blockquote class="blockquote">
+                <p class="mb-0">{{ object.name }}</p>
+                <footer class="blockquote-footer">
+                    {% for participated_user in object.participated_users %}
+                        {{ participated_user.username }}
+                        {% if participated_user.id != object.owner_id %}
+                            :<button class="btn btn-link btn-sm p-0" onclick="removeUser({ user_id: {{participated_user.id }}, room_id: {{pk}} })">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-x"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="18" y1="8" x2="23" y2="13"></line><line x1="23" y1="8" x2="18" y2="13"></line></svg>
+                            </button>
+                        {% endif %}
+                        {% if not forloop.last %}
+                            /
+                        {% endif %}
+                    {% endfor %}
+                </footer>
+            </blockquote>
+        </div>
+        <div class="p-2 float-right w-20">
+            <button class="btn btn btn-info" data-toggle="modal" data-target="#addUserModal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+            </button>
+        </div>
+    </div>
+    <div class="p-2 h-100 bd-highlight">
+        {% for message in messages %}
+            <div class="d-flex {% if message.owner_id == request.user.id %} justify-content-end {% else %} justify-content-start {% endif %}">
+                <div class="shadow p-3 mb-3 bg-white rounded col-4">
+                    {{ message.user_name }}: {{ message.msg }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="p-2 bd-highlight">
+        <div class="card text-right w-100">
+            <textarea id="msg" class="card-text w-100 border-0 noresize" rows="4" placeholder="내용 작성해 주세요."></textarea>
+            <button onclick="sendMessage($('#msg').val());" class="btn btn-primary">보내기</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
