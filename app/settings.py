@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import dj_database_url
+import django_heroku
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -58,11 +61,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'app.urls'
 
+print(BASE_DIR)
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            './templates',
+            os.path.join(BASE_DIR, 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -84,12 +88,21 @@ AUTH_USER_MODEL = 'users.User'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
+DATABASES = {}
+
+# set env for heroku
+# https://devcenter.heroku.com/articles/config-vars
+
+# How to check heroku config e.g) heroku confi
+# How to set heroku config e.g) heroku config:set ENV=heroku
+print(os.getenv('ENV'))
+if os.getenv('ENV') == 'heroku':
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+else:
+    DATABASES['default'] = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-}
 
 
 # Password validation
@@ -128,6 +141,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
@@ -145,3 +160,9 @@ REST_FRAMEWORK = {
 APPEND_SLASH = False
 
 LOGIN_REDIRECT_URL = '/'
+
+# custom staticfiles_storage for gzip
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())

@@ -48,8 +48,9 @@ class RoomDetailView(SecureMixin, DetailView):
 
         context['pk'] = pk
         object = context['object']
-        context['object'] = RoomSerializers(context['object'], context={'request': self.request}).data
+        object = RoomSerializers(instance=context['object'], context={'request', self.request}).data
 
+        print(object)
         context['rooms'] = RoomSerializers(Room.objects.filter(
             pk__in=Room2User.objects.filter(
                 user_id=self.request.user.id
@@ -57,7 +58,7 @@ class RoomDetailView(SecureMixin, DetailView):
         ), many=True, context={'request': self.request}).data
 
         context['users'] = get_user_model().objects.exclude(
-            pk__in=object.participated_users.values_list('pk', flat=True)
+            pk__in=[ user['id'] for user in object['participated_users'] or [] ]
         )
 
         return context

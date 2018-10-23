@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>Chat project</title>
-    {% include 'rooms/lib/styles.html' %}
+    {% include 'rooms/styles.html' %}
     {% load static %}
     <link href="{% static 'messengers/index.css' %}" rel="stylesheet">
 
@@ -14,10 +14,10 @@
     {% csrf_token %}
     <input type="text" hidden id="pk" value="{{ pk }}">
 
-    {% include 'rooms/layout/nav.html' %}
+    {% include 'rooms/nav.html' %}
     <div class="container-fluid h-100">
         <div class="row h-100">
-            {% include 'rooms/layout/sidebar.html' %}
+            {% include 'rooms/sidebar.html' %}
             <main role="main" class="col-9 ml-sm-auto col-lg-10 px-4">
                 {% block content %}
                 {% endblock %}
@@ -26,5 +26,5 @@
     </div>
     {% include 'rooms/modal.html' %}
 </body>
-    {% include 'rooms/lib/javascript.html' %}
+    {% include 'rooms/javascript.html' %}
 </html>
