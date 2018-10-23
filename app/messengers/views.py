@@ -1,6 +1,7 @@
 import logging
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 
@@ -12,7 +13,12 @@ from messengers.serializers import MessageSerializers
 logger = logging.getLogger(__name__)
 
 
-class RoomView(TemplateView):
+class SecureMixin(LoginRequiredMixin):
+    login_url = '/login'
+    redirect_field_name = 'redirect_to'
+
+
+class RoomView(SecureMixin, TemplateView):
     template_name = 'rooms/list.html'
 
     def get_context_data(self, **kwargs):
@@ -26,7 +32,7 @@ class RoomView(TemplateView):
         return context
 
 
-class RoomDetailView(DetailView):
+class RoomDetailView(SecureMixin, DetailView):
     template_name = 'rooms/detail.html'
     model = Room
 

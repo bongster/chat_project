@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
     <div class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
-        <span style="font-size: 0.75em">안 읽은 대화(2)</span>
+        <span style="font-size: 0.75em">안 읽은 대화(-)</span>
         <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#createMessageModal">+새로운
             메세지
         </button>
@@ -8,7 +8,7 @@
 
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <a class="nav-link" href="#">Sign out</a>
+            <a class="nav-link" href="{% url 'logout' %}"><b>{{ user.username }}</b> / Sign out!!</a>
         </li>
     </ul>
 </nav>

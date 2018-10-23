@@ -20,15 +20,22 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from rest_framework import routers
+
+from app.views import LoginView, LogoutView, JoinView
 from messengers.serializers import RoomViewSet, MessageViewSet
 
 router = routers.SimpleRouter(trailing_slash=False)
 router.register('rooms', RoomViewSet)
+
 router.register('messages', MessageViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls')),
+    path('login', LoginView.as_view(), name='login'),
+    path('logout', LogoutView.as_view(), name='logout'),
+    path('join', JoinView.as_view(), name='join'),
+    # path('', include('django.contrib.auth.urls')),
     path('', include('messengers.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

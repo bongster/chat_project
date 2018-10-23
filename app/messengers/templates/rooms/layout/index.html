@@ -6,6 +6,9 @@
 
     <title>Chat project</title>
     {% include 'rooms/lib/styles.html' %}
+    {% load static %}
+    <link href="{% static 'messengers/index.css' %}" rel="stylesheet">
+
 </head>
 <body>
     {% csrf_token %}
