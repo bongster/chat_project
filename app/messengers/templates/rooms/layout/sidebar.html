@@ -1,0 +1,23 @@
+<div class="col-2 d-md-block bg-light sidebar">
+    <div class="d-flex flex-column bd-highlight mb-3 h-100">
+        <div class="p-2 bd-highlight">
+            <input type="text" placeholder="대화 검색하기" class="form-control" style="border-radius: 1rem!important;"></input>
+        </div>
+        <div class="h-100 bd-highlight" style="overflow-y: scroll;">
+            <div class="list-group">
+                {% for room in rooms %}
+                    <a href="/rooms/{{ room.id }}" class="rounded-0 list-group-item list-group-item-action flex-column align-items-start {% if room.id == pk %} active {% endif %}">
+                        <div class="d-flex w-100 justify-content-start">
+                            <h6 class="mb-1 mr-5">{{ room.name }}</h6>
+                            <small>{{ room.updated_at }}</small>
+                        </div>
+                        <p class="mb-1 short_message">마지막 메세지는? 이거 입니다다아아아아아 아아아아아아</p>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="bd-highlight">
+            <button id="more_btn" class="btn btn-block btn-link border">이전대화 불러오기 </button>
+        </div>
+    </div>
+</div>

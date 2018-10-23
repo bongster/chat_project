@@ -2,29 +2,49 @@ from django.db import models
 
 # Create your models here.
 
-class Romm(models.Model):
+
+class Room(models.Model):
     class Meta:
         db_table = 'rooms'
         index_together = (
             ('owner_id', 'is_active'),
         )
-    name=models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
     description = models.CharField(max_length=100)
-    owner_id = models.PositiveIntegerField(null=True)
+    owner_id = models.PositiveIntegerField(null=True, blank=True)
 
     is_active = models.BooleanField(default=True)
 
-    created_at = models.DateTimeField(auto_now=False, auto_now_add=False)
-    updated_at = models.DateTimeField(auto_now=False, auto_now_add=False)
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
+
+
+class Room2User(models.Model):
+    class Meta:
+        db_table = 'rooms_to_users'
+        unique_together = (
+            ('room_id', 'user_id'),
+        )
+
+    room_id = models.IntegerField()
+    user_id = models.IntegerField()
+
+    is_active = models.BooleanField(default=True)
+
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
+
 
 class Message(models.Model):
     class Meta:
         db_table = 'messages'
 
-    form_user = models.PositiveIntegerField(db_index=True)
-    to_user = models.PositiveIntegerField(db_index=True)
+    owner_id = models.PositiveIntegerField(db_index=True, blank=True)
+    room_id = models.PositiveIntegerField(db_index=True)
 
-    created_at = models.DateTimeField(auto_now=False, auto_now_add=False)
-    updated_at = models.DateTimeField(auto_now=False, auto_now_add=False)
+    msg = models.TextField()
 
     is_active = models.BooleanField(default=True)
+
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
