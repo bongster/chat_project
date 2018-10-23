@@ -11,13 +11,13 @@
                             <h6 class="mb-1 mr-5">{{ room.name }}</h6>
                             <small>{{ room.updated_at }}</small>
                         </div>
-                        <p class="mb-1 short_message">마지막 메세지는? 이거 입니다다아아아아아 아아아아아아</p>
+                        <p class="mb-1 short_message">{{ room.latest_msg }}</p>
                     </a>
                 {% endfor %}
             </div>
         </div>
         <div class="bd-highlight">
-            <button id="more_btn" class="btn btn-block btn-link border">이전대화 불러오기 </button>
+            <button id="more_btn" class="btn btn-block btn-link border" disabled>이전대화 불러오기 </button>
         </div>
     </div>
 </div>

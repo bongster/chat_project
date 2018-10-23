@@ -26,7 +26,6 @@ from messengers.serializers import RoomViewSet, MessageViewSet
 
 router = routers.SimpleRouter(trailing_slash=False)
 router.register('rooms', RoomViewSet)
-
 router.register('messages', MessageViewSet)
 
 urlpatterns = [
@@ -36,6 +35,5 @@ urlpatterns = [
     path('login', LoginView.as_view(), name='login'),
     path('logout', LogoutView.as_view(), name='logout'),
     path('join', JoinView.as_view(), name='join'),
-    # path('', include('django.contrib.auth.urls')),
     path('', include('messengers.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
