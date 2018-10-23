@@ -10,22 +10,22 @@ Simple Chatting project
 * heroku
 
 ### Features
-* [x] 유저등록
-* [x] 로그인
-* [x] 로그아웃
-* [x] 내 채팅방 리스트 보기
-* [x] 채팅방 상세보기
-* [x] 메세지 보내기
-* [x] 사용자 추가하기
-* [x] 사용자 제거하기
-* [ ] 대화 검색하기
-* [ ] 실시간 메세지보기
-* [ ] 링크 url일 경우 click 가능하게 하기.
-* [ ] 읽지 않은 메세지 확인하기 
-* [ ] 메세지 전송시 Task queue를 사용하여 메세지 내용 메일로 전달하기.
-* [ ] frontend와 backend의 분리하기.
-* [ ] docker-compose를 세팅해서 local환경과 production 환경 세팅 공통화 하기
-* [ ] pytest를 통해서 unit test 코드 작성하기.
+* ~~유저등록~~
+* ~~로그인~~
+* ~~로그아웃~~
+* ~~내 채팅방 리스트 보기~~
+* ~~채팅방 상세보기~~
+* ~~메세지 보내기~~
+* ~~사용자 추가하기~~
+* ~~사용자 제거하기~~
+* 대화 검색하기
+* 실시간 메세지보기
+* 링크 url일 경우 click 가능하게 하기.
+* 읽지 않은 메세지 확인하기
+* 메세지 전송시 Task queue를 사용하여 메세지 내용 메일로 전달하기.
+* frontend와 backend의 분리하기.
+* docker-compose를 세팅해서 local환경과 production 환경 세팅 공통화 하기
+* pytest를 통해서 unit test 코드 작성하기.
 
 ### Folder Structures
 ```bash
